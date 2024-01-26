@@ -37,10 +37,76 @@ function getUserChoice(){
     }
     return pc;
 }
+
 let win=false;
 let winCount=0;
+let loseCount=0;
+let tieCount=0;
 let roundCount=0;
-while(roundCount<5){
+let result=''
+function givePoints(result){
+    if(result.includes("You win.")){winCount+=1}
+    if(result.includes("You lose.")){loseCount+=1}
+    if(result.includes("tie.")){tieCount+=1}
+}
+function updateScore(){
+    let wins=document.querySelector('#playerWins')
+    wins.textContent=winCount;
+    let losses=document.querySelector('#playerLosses')
+    losses.textContent=loseCount;
+    let ties=document.querySelector('#tieCount')
+    ties.textContent=tieCount;
+}
+function checkWinLoss(){
+    if(winCount==5){
+        alert("Congratulations! You won! Final Score: Wins: "+winCount+" Losses: "+loseCount+"Ties: "+tieCount)
+    }
+    else if(loseCount==5){
+        alert("You lost! Do better next time! Final Score: Wins: "+winCount+" Losses: "+loseCount+" Ties: "+tieCount)
+    }
+
+}
+function reset(){
+    winCount=0
+    loseCount=0
+    tieCount=0
+    updateScore()
+}
+let rock=document.querySelector("#Rock")
+rock.addEventListener('click', ()=>{
+    let pc="rock"
+    let cc=getComputerChoice();
+    givePoints(playRound(pc,cc))
+    updateScore()
+    checkWinLoss()
+})
+let paper=document.querySelector("#Paper")
+paper.addEventListener('click', ()=>{
+    let pc="paper"
+    let cc=getComputerChoice();
+    givePoints(playRound(pc,cc))
+    updateScore()
+    checkWinLoss()
+})
+let scissors=document.querySelector("#Scissors")
+scissors.addEventListener('click', ()=>{
+    let pc ="scissors"
+    let cc=getComputerChoice();
+    givePoints(playRound(pc,cc))
+    updateScore()
+    checkWinLoss()
+    
+})
+
+let btn=document.querySelector("#reset")
+btn.addEventListener('click',()=>{
+    reset()
+})
+
+
+
+
+/*while(roundCount<5){
     let cc=getComputerChoice();
     let pc=getUserChoice();
     let result=playRound(pc,cc);
@@ -50,3 +116,4 @@ while(roundCount<5){
     };
 if (winCount>=3){console.log("Congratulations! You won")}
 else{console.log("You lose.")};
+*/
